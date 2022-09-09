@@ -1,0 +1,52 @@
+name: Send greetings
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  send-greetings:
+    name: Send greetings
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'issue_comment' &&
+      startsWith(github.event.comment.body, '/send-greetings')
+
+    steps:
+
+      - name: Check out repository for scripts
+        uses: actions/checkout@v2
+      
+      - name: Parse issue body 
+        id: parsed-issue
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const result = require('./.github/scripts/parse-issue-body.js')({context, core})
+            return result
+    
+      - name: Send Greetings
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const whoToGreet = ${{ steps.parsed-issue.outputs.who-to-greet }}
+            const body = `👋 Hello **\`${whoToGreet}\`** !!`
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })
+     
+      - if: ${{ failure() }}
+        name: Report failed migration
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const body = `:no_entry: **Sending greetings failed.** [View workflow run for details](${context.payload.repository.html_url}/actions/runs/${context.runId})`
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            })       
