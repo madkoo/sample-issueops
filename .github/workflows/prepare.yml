@@ -25,8 +25,8 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const options = { MyVariable: '${{ secrets.MY_SECRET }}' } # it is possible to pass in variables from the workflow to the script
-            await require('./.github/scripts/prepare.js')({github, context, options})
+             const options = { myVariable: '${{ secrets.MY_SECRET }}' }
+             await require('./.github/scripts/prepare.js')({github, context, options})
       - if: ${{ failure() }}
         name: Report failed migration
         uses: actions/github-script@v3
