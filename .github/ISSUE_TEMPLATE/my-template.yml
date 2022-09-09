@@ -13,7 +13,7 @@ body:
   - type: textarea
     id: txtArea
     attributes:
-      label: Large are for text
+      label: Large area for text
       description: Here we could aske the customers to enter some multi-line values
       render: csv
       placeholder: |
