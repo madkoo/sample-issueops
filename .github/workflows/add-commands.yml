@@ -29,8 +29,7 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            const whoToGreet = ${{ steps.parsed-issue.outputs.who-to-greet }}
-            const body = `👋 Hello **\`${whoToGreet}\`** !!`
+            const body = `👋 Hello **\`${{ steps.parsed-issue.outputs.who-to-greet }}\`** !!`
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
