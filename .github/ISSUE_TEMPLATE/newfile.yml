@@ -1,0 +1,23 @@
+name: Name of your template
+description: Short description of what it does
+title: "GitHub setting up IssueOps"
+labels: ["CanAddLables"]
+body:
+  - type: "input"
+    attributes:
+      label: "Hello!"
+      description: "Whom should we greet?"
+      placeholder: "World"
+    validations:
+      required: true
+  - type: textarea
+    id: txtArea
+    attributes:
+      label: Large are for text
+      description: Here we could aske the customers to enter some multi-line values
+      render: csv
+      placeholder: |
+        value-one
+        value-two
+    validations:
+      required: true
