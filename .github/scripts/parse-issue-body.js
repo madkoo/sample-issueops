@@ -9,15 +9,13 @@ module.exports = ({context, core}) => {
         core.setOutput('who-to-greet', parsedWhoToGreet.groups.whoToGreet);
       }
        if (parsedMutliLine) {
-        core.setOutput('mutliline-value', parsedMutliLine.groups.multiLine.trim());
+        core.setOutput('mutliline-values', parsedMutliLine.groups.multiLine.trim());
       }
     }
-  
     let result = {
       whoToGreet: parsedWhoToGreet.groups.whoToGreet,
-      multiLine: parsedMutliLine.groups.multiLine
+      mutliLineValues: parsedMutliLine.groups.multiLine
       
     };
-  
     return result;
   }
